@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.contrib import rnn
+from tensorflow.keras.layers import RNN
 from utils import get_init_embedding
 
 
@@ -39,8 +39,8 @@ class Model(object):
         with tf.name_scope("encoder"):
             fw_cells = [self.cell(self.num_hidden) for _ in range(self.num_layers)]
             bw_cells = [self.cell(self.num_hidden) for _ in range(self.num_layers)]
-            fw_cells = [rnn.DropoutWrapper(cell) for cell in fw_cells]
-            bw_cells = [rnn.DropoutWrapper(cell) for cell in bw_cells]
+            fw_cells = [RNN.DropoutWrapper(cell) for cell in fw_cells]
+            bw_cells = [RNN.DropoutWrapper(cell) for cell in bw_cells]
 
             encoder_outputs, encoder_state_fw, encoder_state_bw = tf.contrib.rnn.stack_bidirectional_dynamic_rnn(
                 fw_cells, bw_cells, self.encoder_emb_inp,
@@ -48,7 +48,7 @@ class Model(object):
             self.encoder_output = tf.concat(encoder_outputs, 2)
             encoder_state_c = tf.concat((encoder_state_fw[0].c, encoder_state_bw[0].c), 1)
             encoder_state_h = tf.concat((encoder_state_fw[0].h, encoder_state_bw[0].h), 1)
-            self.encoder_state = rnn.LSTMStateTuple(c=encoder_state_c, h=encoder_state_h)
+            self.encoder_state = RNN.LSTMStateTuple(c=encoder_state_c, h=encoder_state_h)
 
         with tf.name_scope("decoder"), tf.variable_scope("decoder") as decoder_scope:
             decoder_cell = self.cell(self.num_hidden * 2)
