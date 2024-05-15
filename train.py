@@ -12,6 +12,7 @@ from utils import build_dict, build_dataset, batch_iter
 
 start = time.perf_counter()
 
+
 def add_arguments(parser):
     parser.add_argument("--num_hidden", type=int, default=150, help="Network size.")
     parser.add_argument("--num_layers", type=int, default=2, help="Network depth.")
@@ -26,7 +27,6 @@ def add_arguments(parser):
     parser.add_argument("--with_model", action="store_true", help="Continue from previously saved model")
 
 
-
 parser = argparse.ArgumentParser()
 add_arguments(parser)
 args = parser.parse_args()
@@ -38,22 +38,21 @@ if not os.path.exists("saved_model"):
 else:
     if args.with_model:
         old_model_checkpoint_path = open('saved_model/checkpoint', 'r')
-        old_model_checkpoint_path = "".join(["saved_model/",old_model_checkpoint_path.read().splitlines()[0].split('"')[1] ])
-
+        old_model_checkpoint_path = "".join(
+            ["saved_model/", old_model_checkpoint_path.read().splitlines()[0].split('"')[1]])
 
 print("Building dictionary...")
 word_dict, reversed_dict, article_max_len, summary_max_len = build_dict("train", args.toy)
 print("Loading training dataset...")
 train_x, train_y = build_dataset("train", word_dict, article_max_len, summary_max_len, args.toy)
 
-
 with tf.Session() as sess:
     model = Model(reversed_dict, article_max_len, summary_max_len, args)
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver(tf.global_variables())
     if 'old_model_checkpoint_path' in globals():
-        print("Continuing from previous trained model:" , old_model_checkpoint_path , "...")
-        saver.restore(sess, old_model_checkpoint_path )
+        print("Continuing from previous trained model:", old_model_checkpoint_path, "...")
+        saver.restore(sess, old_model_checkpoint_path)
 
     batches = batch_iter(train_x, train_y, args.batch_size, args.num_epochs)
     num_batches_per_epoch = (len(train_x) - 1) // args.batch_size + 1
@@ -90,4 +89,4 @@ with tf.Session() as sess:
             minutes, seconds = divmod(rem, 60)
             saver.save(sess, "./saved_model/model.ckpt", global_step=step)
             print(" Epoch {0}: Model is saved.".format(step // num_batches_per_epoch),
-            "Elapsed: {:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds) , "\n")
+                  "Elapsed: {:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds), "\n")
