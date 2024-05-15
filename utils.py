@@ -7,11 +7,10 @@ from gensim.models.keyedvectors import KeyedVectors
 from gensim.test.utils import get_tmpfile
 from gensim.scripts.glove2word2vec import glove2word2vec
 
-
-train_article_path = "./sumdata/train/train.article.txt"
-train_title_path = "./sumdata/train/train.title.txt"
-valid_article_path = "./sumdata/train/valid.article.filter.txt"
-valid_title_path = "./sumdata/train/valid.title.filter.txt"
+train_article_path = "/kaggle/input/sumdata/sumdata/train/train.article.txt"
+train_title_path = "/kaggle/input/sumdata/sumdata/train/train.title.txt"
+valid_article_path = "/kaggle/input/sumdata/sumdata/train/valid.article.filter.txt"
+valid_title_path = "/kaggle/input/sumdata/sumdata/train/valid.title.filter.txt"
 
 
 def clean_str(sentence):
@@ -20,7 +19,7 @@ def clean_str(sentence):
 
 
 def get_text_list(data_path, toy):
-    with open (data_path, "r", encoding="utf-8") as f:
+    with open(data_path, "r", encoding="utf-8") as f:
         if not toy:
             return [clean_str(x.strip()) for x in f.readlines()]
         else:
@@ -74,10 +73,10 @@ def build_dataset(step, word_dict, article_max_len, summary_max_len, toy=False):
     x = [[word_dict.get(w, word_dict["<unk>"]) for w in d] for d in x]
     x = [d[:article_max_len] for d in x]
     x = [d + (article_max_len - len(d)) * [word_dict["<padding>"]] for d in x]
-    
+
     if step == "valid":
         return x
-    else:        
+    else:
         y = [word_tokenize(d) for d in title_list]
         y = [[word_dict.get(w, word_dict["<unk>"]) for w in d] for d in y]
         y = [d[:(summary_max_len - 1)] for d in y]
@@ -97,7 +96,7 @@ def batch_iter(inputs, outputs, batch_size, num_epochs):
 
 
 def get_init_embedding(reversed_dict, embedding_size):
-    glove_file = "./glove/glove.42B.300d.txt"
+    glove_file = "/kaggle/input/glove-42b-300d-txt/glove.42B.300d.txt"
     word2vec_file = get_tmpfile("word2vec_format.vec")
     glove2word2vec(glove_file, word2vec_file)
     print("Loading Glove vectors...")

@@ -1,4 +1,6 @@
-gensim
+gensim~=3.3.0
 wget==3.2
-nltk==3.6.6
+nltk~=3.6.6
 tensorflow>=1.8.0
+
+numpy~=1.26.4
