@@ -46,7 +46,7 @@ word_dict, reversed_dict, article_max_len, summary_max_len = build_dict("train",
 print("Loading training dataset...")
 train_x, train_y = build_dataset("train", word_dict, article_max_len, summary_max_len, args.toy)
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     model = Model(reversed_dict, article_max_len, summary_max_len, args)
     sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver(tf.global_variables())
