@@ -16,7 +16,7 @@ class Model(object):
             self.keep_prob = args.keep_prob
         else:
             self.keep_prob = 1.0
-        self.cell = tf.contrib.rnn.BasicLSTMCell
+        self.cell = tf.keras.layers.LSTMCell
         with tf.variable_scope("decoder/projection"):
             self.projection_layer = tf.layers.Dense(self.vocabulary_size, use_bias=False)
 
