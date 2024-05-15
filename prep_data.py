@@ -15,11 +15,11 @@ with tarfile.open("summary.tar.gz", "r:gz") as tar:
     tar.extractall()
 
 with gzip.open("sumdata/train/train.article.txt.gz", "rb") as gz:
-    with open("sumdata/train/train.article.txt", "wb") as out:
+    with open("./sumdata/train/train.article.txt", "wb") as out:
         out.write(gz.read())
 
 with gzip.open("sumdata/train/train.title.txt.gz", "rb") as gz:
-    with open("sumdata/train/train.title.txt", "wb") as out:
+    with open("./sumdata/train/train.title.txt", "wb") as out:
         out.write(gz.read())
 
 if args.glove:

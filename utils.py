@@ -8,10 +8,10 @@ from gensim.test.utils import get_tmpfile
 from gensim.scripts.glove2word2vec import glove2word2vec
 
 
-train_article_path = "sumdata/train/train.article.txt"
-train_title_path = "sumdata/train/train.title.txt"
-valid_article_path = "sumdata/train/valid.article.filter.txt"
-valid_title_path = "sumdata/train/valid.title.filter.txt"
+train_article_path = "./sumdata/train/train.article.txt"
+train_title_path = "./sumdata/train/train.title.txt"
+valid_article_path = "./sumdata/train/valid.article.filter.txt"
+valid_title_path = "./sumdata/train/valid.title.filter.txt"
 
 
 def clean_str(sentence):
@@ -97,7 +97,7 @@ def batch_iter(inputs, outputs, batch_size, num_epochs):
 
 
 def get_init_embedding(reversed_dict, embedding_size):
-    glove_file = "glove/glove.42B.300d.txt"
+    glove_file = "./glove/glove.42B.300d.txt"
     word2vec_file = get_tmpfile("word2vec_format.vec")
     glove2word2vec(glove_file, word2vec_file)
     print("Loading Glove vectors...")

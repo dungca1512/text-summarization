@@ -27,22 +27,22 @@ Used [BahdanauAttention](https://www.tensorflow.org/api_docs/python/tf/contrib/s
 ## Usage
 ### Prepare data
 Dataset is available at [harvardnlp/sent-summary](https://github.com/harvardnlp/sent-summary). Locate the summary.tar.gz file in project root directory. Then,
-```
-$ python prep_data.py
+```bash
+python prep_data.py
 ```
 To use Glove pre-trained embedding, download it via
-```
-$ python prep_data.py --glove
+```bash
+python prep_data.py --glove
 ```
 
 ### Train
 We used ```sumdata/train/train.article.txt``` and ```sumdata/train/train.title.txt``` for training data. To train the model, use
-```
-$ python train.py
+```bash
+python train.py
 ```
 To use Glove pre-trained vectors as initial embedding, use
-```
-$ python train.py --glove
+```bash
+python train.py --glove
 ```
 
 #### Additional Hyperparamters
@@ -80,8 +80,8 @@ optional arguments:
 
 ### Test
 Generate summary of each article in ```sumdata/train/valid.article.filter.txt``` by
-```
-$ python test.py
+```bash
+python test.py
 ```
 It will generate result summary file ```result.txt```. Check out ROUGE metrics between ```result.txt``` and ```sumdata/train/valid.title.filter.txt``` using [pltrdy/files2rouge](https://github.com/pltrdy/files2rouge).
 
@@ -114,7 +114,7 @@ It will generate result summary file ```result.txt```. Check out ROUGE metrics b
 
 ## Pre-trained Model
 To test with pre-trained model, download [pre_trained.zip](https://drive.google.com/file/d/1V8pS1eoiv51wfiVp2rOB7IvJ5PeQs2n-/view?usp=sharing), and locate it in the project root directory. Then,
-```
-$ unzip pre_trained.zip
-$ python test.py
+```bash
+unzip pre_trained.zip
+python test.py
 ```
