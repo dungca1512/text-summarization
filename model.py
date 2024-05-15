@@ -33,7 +33,7 @@ class Model(object):
                 init_embeddings = tf.constant(get_init_embedding(reversed_dict, self.embedding_size), dtype=tf.float32)
             else:
                 init_embeddings = tf.random_uniform([self.vocabulary_size, self.embedding_size], -1.0, 1.0)
-            self.embeddings = tf.get_variable("embeddings", initializer=init_embeddings)
+            self.embeddings = tf.Variable(init_embeddings, name="embeddings")
             self.encoder_emb_inp = tf.transpose(tf.nn.embedding_lookup(self.embeddings, self.X), perm=[1, 0, 2])
             self.decoder_emb_inp = tf.transpose(tf.nn.embedding_lookup(self.embeddings, self.decoder_input), perm=[1, 0, 2])
 
