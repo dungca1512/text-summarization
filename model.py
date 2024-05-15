@@ -18,7 +18,7 @@ class Model(object):
             self.keep_prob = 1.0
         self.cell = tf.keras.layers.LSTMCell
         with tf.name_scope("decoder/projection"):
-            self.projection_layer = tf.layers.Dense(self.vocabulary_size, use_bias=False)
+            self.projection_layer = tf.keras.layers.Dense(self.vocabulary_size, use_bias=False)
 
         self.batch_size = tf.placeholder(tf.int32, (), name="batch_size")
         self.X = tf.placeholder(tf.int32, [None, article_max_len])
