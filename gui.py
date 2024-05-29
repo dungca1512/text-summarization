@@ -1,9 +1,7 @@
 import tkinter as tk
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import time
+
 from transformers import pipeline
-import tkinter.ttk as ttk
+
 
 def summarize_article():
     input_text = input_text_area.get("1.0", tk.END)
@@ -17,6 +15,7 @@ def summarize_article():
     # Display the summary in the output area
     summary_text_area.delete(1.0, tk.END)
     summary_text_area.insert(tk.INSERT, summary[0]['text'])
+
 
 root = tk.Tk()
 root.title("Article Summarizer")
