@@ -61,6 +61,7 @@ def build_dict(step, toy=False):
 
 
 def build_dataset(step, word_dict, article_max_len, summary_max_len, toy=False):
+    global title_list
     if step == "train":
         article_list = get_text_list(train_article_path, toy)
         title_list = get_text_list(train_title_path, toy)
